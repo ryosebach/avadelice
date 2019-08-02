@@ -1,7 +1,30 @@
 POST_MORTEM.md
 
-######### generated from gibo ###########
-### https://raw.github.com/github/gitignore/5c5a1b536b6f9bf11515518f03d58addaf29f681/Global/macOS.gitignore
+# build
+.gradle
+build
+out
+*.class
+.settings
+.project
+.classpath
+
+# Package Files #
+*.jar
+!gradle-wrapper.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# IntelliJ Idea
+.idea/
+out/
+*.ipr
+*.iws
+*.iml
 
 # General
 .DS_Store
@@ -9,7 +32,8 @@ POST_MORTEM.md
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*
@@ -29,59 +53,3 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
-
-
-### https://raw.github.com/github/gitignore/5c5a1b536b6f9bf11515518f03d58addaf29f681/Global/Windows.gitignore
-
-# Windows thumbnail cache files
-Thumbs.db
-ehthumbs.db
-ehthumbs_vista.db
-
-# Dump file
-*.stackdump
-
-# Folder config file
-[Dd]esktop.ini
-
-# Recycle Bin used on file shares
-$RECYCLE.BIN/
-
-# Windows Installer files
-*.cab
-*.msi
-*.msix
-*.msm
-*.msp
-
-# Windows shortcuts
-*.lnk
-
-
-### https://raw.github.com/github/gitignore/5c5a1b536b6f9bf11515518f03d58addaf29f681/Kotlin.gitignore
-
-# Compiled class file
-*.class
-
-# Log file
-*.log
-
-# BlueJ files
-*.ctxt
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
-*.jar
-*.war
-*.nar
-*.ear
-*.zip
-*.tar.gz
-*.rar
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-
-
