@@ -73,3 +73,31 @@ subprojects {
         dependsOn("ktlint")
     }
 }
+
+tasks.register<Exec>("startDatabase") {
+    group = "application"
+    commandLine("docker")
+    args(
+        "run",
+        "--rm",
+        "--name", "template-database",
+        "-e", "MYSQL_ROOT_PASSWORD=template-secret",
+        "-e", "MYSQL_DATABASE=template",
+        "-p", "13306:3306",
+        "-v", "$projectDir/db:/docker-entrypoint-initdb.d",
+        "-v", "$projectDir/docker/mysql/conf.d:/etc/mysql/conf.d",
+        "-d", "mysql:5.6"
+    )
+    doLast {
+        logger.info("database started.")
+    }
+}
+
+tasks.register<Exec>("stopDatabase") {
+    group = "application"
+    commandLine("docker")
+    args("stop", "template-database")
+    doLast {
+        logger.info("database stopped.")
+    }
+}
