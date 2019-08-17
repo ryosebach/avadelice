@@ -29,3 +29,11 @@ A tar is generated that contains the executable file.
 ```shell
 ./infrastructure/build/libs/template.jar
 ```
+
+## Test
+
+Exec the following to test.
+
+```shell
+./gradlew test
+```
