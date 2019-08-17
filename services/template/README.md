@@ -23,3 +23,9 @@ Exec the following to build.
 ```shell
 ./gradlew shadowJar
 ```
+
+A tar is generated that contains the executable file.
+
+```shell
+./infrastructure/build/libs/template.jar
+```
