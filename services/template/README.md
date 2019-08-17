@@ -15,3 +15,11 @@ Exec the following to run.
 So you can refer to the following.
 
 http://localhost:17301/v1/health
+
+## Build
+
+Exec the following to build.
+
+```shell
+./gradlew shadowJar
+```
