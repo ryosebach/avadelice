@@ -16,6 +16,10 @@ So you can refer to the following.
 
 http://localhost:17301/v1/health
 
+And you can refer Database to the following.
+
+localhost:13306
+
 ## Build
 
 Exec the following to build.
