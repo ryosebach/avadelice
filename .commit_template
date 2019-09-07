@@ -1,0 +1,20 @@
+# ======== Emoji Prefix ========
+# ✨ :sparkles: New features.
+# ✏ :pencil2: Fixing typos.
+# 🐛 :bug: Fixing a bug.
+# ♻ :recycle: Refactoring code.
+# 🔥 :fire: Removing code or files.
+# 🚚 :truck: Moving or renaming files.
+# 🚨 :rotating_light: Removing linter warnings.
+# 📝 :memo: Writing docs.
+# 📦 :package: Adding / Removing a dependency.
+# 🔧 :wrench: Changing configuration files.
+# 🚑 :ambulance: Critical hotfix.
+# ✅ :white_check_mark: Adding tests.
+# 🚧 :construction: Work in progress.
+# 💚 :green_heart: Fixing CI Build.
+# 👷 :construction_worker: Adding CI build system.
+# 🙈 :see_no_evil: Adding or updating a .gitignore file
+# 🐳 :whale: Work about Docker.
+# ⏪ :rewind: Reverting changes.
+# 🔀 :twisted_rightwards_arrows: Merging branches.
