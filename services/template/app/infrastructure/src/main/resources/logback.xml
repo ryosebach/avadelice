@@ -1,0 +1,30 @@
+<configuration>
+
+    <property name="SERVICE" value="template" />
+    <property name="PATTERN" value="timestamp:%d{YYYY-MM-dd HH:mm:ss.SSS}&#9;service:${SERVICE}" />
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{YYYY-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="Access" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>
+                ${PATTERN}&#9;type:microservices_access&#9;%m%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <logger name="Application" level="info" additivity="false">
+        <appender-ref ref="Access"/>
+    </logger>
+
+    <root level="info">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+    <logger name="org.eclipse.jetty" level="INFO"/>
+    <logger name="io.netty" level="INFO"/>
+</configuration>
