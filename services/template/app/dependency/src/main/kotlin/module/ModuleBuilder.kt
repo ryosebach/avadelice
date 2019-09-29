@@ -1,10 +1,15 @@
 package module
 
+import rdb.ExampleRepositoryImpl
+import controller.ExampleController
 import helper.DatabaseConfig
 import helper.TransactionHelper
 import helper.TransactionHelperImpl
 import org.koin.dsl.module.Module
 import org.koin.dsl.module.module
+import repository.ExampleRepository
+import service.ExampleService
+import service.ExampleServiceImpl
 
 object ModuleBuilder {
     fun modules(infrastructureModules: Module): List<Module> = listOf(
@@ -48,10 +53,13 @@ object ModuleBuilder {
             }
 
             // repositories
+            single<ExampleRepository> { ExampleRepositoryImpl() }
 
             // controllers
+            single { ExampleController(get()) }
 
             // services
+            single<ExampleService> { ExampleServiceImpl(get(), get()) }
         },
         infrastructureModules
     )
