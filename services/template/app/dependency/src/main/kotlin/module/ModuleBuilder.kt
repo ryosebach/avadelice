@@ -1,12 +1,12 @@
 package module
 
-import rdb.ExampleRepositoryImpl
 import controller.ExampleController
 import helper.DatabaseConfig
 import helper.TransactionHelper
 import helper.TransactionHelperImpl
 import org.koin.dsl.module.Module
 import org.koin.dsl.module.module
+import rdb.ExampleRepositoryImpl
 import repository.ExampleRepository
 import service.ExampleService
 import service.ExampleServiceImpl

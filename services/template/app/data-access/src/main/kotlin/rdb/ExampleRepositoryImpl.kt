@@ -1,6 +1,7 @@
 package rdb
 
 import entity.Example
+import java.time.LocalDateTime
 import org.jetbrains.exposed.sql.Op
 import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.SortOrder
@@ -12,7 +13,6 @@ import rdb.table.ExampleTable
 import repository.ExampleRepository
 import utility.toJavaLocalDateTime
 import utility.toJodaDateTime
-import java.time.LocalDateTime
 
 class ExampleRepositoryImpl : ExampleRepository {
 
