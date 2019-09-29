@@ -7,6 +7,7 @@ import org.jetbrains.exposed.sql.SortOrder
 import org.jetbrains.exposed.sql.andWhere
 import org.jetbrains.exposed.sql.insertAndGetId
 import org.jetbrains.exposed.sql.select
+import org.jetbrains.exposed.sql.update
 import rdb.table.ExampleTable
 import repository.ExampleRepository
 import utility.toJavaLocalDateTime
@@ -72,6 +73,27 @@ class ExampleRepositoryImpl : ExampleRepository {
         }
 
         return campaignId.value
+    }
+
+    override fun updateById(
+        id: Long,
+        nameJa: String?,
+        nameEn: String?,
+        nameKo: String?,
+        nameZh: String?,
+        enabled: Boolean?,
+        updatedAt: LocalDateTime
+    ): Boolean {
+        val count = ExampleTable.update({ ExampleTable.id eq id }) {
+            nameJa?.let { value -> it[this.nameJa] = value }
+            nameEn?.let { value -> it[this.nameEn] = value }
+            nameKo?.let { value -> it[this.nameKo] = value }
+            nameZh?.let { value -> it[this.nameZh] = value }
+            enabled?.let { value -> it[this.enabled] = value }
+            it[this.updatedAt] = updatedAt.toJodaDateTime()
+        }
+        if (count > 1) throw Exception("Duplicate ID")
+        return count != 0
     }
 
     /**

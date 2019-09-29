@@ -5,6 +5,7 @@ import repository.ExampleRepository
 import result.ExampleCreateResult
 import result.ExampleFindListResult
 import result.ExampleFindResult
+import result.ExampleUpdateResult
 import utility.ServiceDateTime
 
 class ExampleServiceImpl(
@@ -58,6 +59,36 @@ class ExampleServiceImpl(
             val test = exampleRepository.findOneById(testId)
                 ?: return@masterTransaction ExampleCreateResult.BadRequest
             ExampleCreateResult.Success(test)
+        }
+    }
+
+    override fun update(
+        exampleKey: String,
+        nameJa: String?,
+        nameEn: String?,
+        nameKo: String?,
+        nameZh: String?,
+        enabled: Boolean?
+    ): ExampleUpdateResult {
+        val now = ServiceDateTime.now()
+        return transactionHelper.masterTransaction {
+            val test = exampleRepository.findOneByKey(exampleKey)
+                ?: return@masterTransaction ExampleUpdateResult.BadRequest
+            val testUpdateResult = exampleRepository.updateById(
+                id = test.id,
+                nameJa = nameJa,
+                nameEn = nameEn,
+                nameKo = nameKo,
+                nameZh = nameZh,
+                enabled = enabled,
+                updatedAt = now
+            )
+            if (!testUpdateResult) {
+                return@masterTransaction ExampleUpdateResult.BadRequest
+            }
+            val updatedTest = exampleRepository.findOneByKey(exampleKey)
+                ?: return@masterTransaction ExampleUpdateResult.BadRequest
+            ExampleUpdateResult.Success(updatedTest)
         }
     }
 }

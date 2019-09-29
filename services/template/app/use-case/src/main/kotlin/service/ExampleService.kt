@@ -31,4 +31,16 @@ interface ExampleService {
         nameZh: String,
         enabled: Boolean
     ): ExampleCreateResult
+
+    /**
+     * Example を更新する。
+     */
+    fun update(
+        exampleKey: String,
+        nameJa: String?,
+        nameEn: String?,
+        nameKo: String?,
+        nameZh: String?,
+        enabled: Boolean?
+    ): ExampleUpdateResult
 }

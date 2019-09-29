@@ -24,4 +24,14 @@ interface ExampleRepository {
         createdAt: LocalDateTime,
         updatedAt: LocalDateTime
     ): Long
+
+    fun updateById(
+        id: Long,
+        nameJa: String?,
+        nameEn: String?,
+        nameKo: String?,
+        nameZh: String?,
+        enabled: Boolean?,
+        updatedAt: LocalDateTime
+    ): Boolean
 }
