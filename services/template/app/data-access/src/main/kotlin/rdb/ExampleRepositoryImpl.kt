@@ -1,7 +1,10 @@
 package rdb
 
 import entity.Example
+import org.jetbrains.exposed.sql.Op
 import org.jetbrains.exposed.sql.ResultRow
+import org.jetbrains.exposed.sql.SortOrder
+import org.jetbrains.exposed.sql.andWhere
 import org.jetbrains.exposed.sql.select
 import rdb.table.ExampleTable
 import repository.ExampleRepository
@@ -25,6 +28,23 @@ class ExampleRepositoryImpl : ExampleRepository {
             .singleOrNull()
 
         return campaign?.toEntity()
+    }
+
+    override fun findList(
+        limit: Int,
+        offset: Int,
+        enabled: Boolean?
+    ): List<Example> {
+        val campaignQuery = ExampleTable
+            .select { Op.build { Op.TRUE } }
+        enabled?.let {
+            campaignQuery.andWhere { ExampleTable.enabled eq it }
+        }
+        campaignQuery
+            .limit(limit, offset)
+            .orderBy(ExampleTable.id, SortOrder.ASC)
+
+        return campaignQuery.map { it.toEntity() }
     }
 
     /**

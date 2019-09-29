@@ -10,4 +10,13 @@ interface ExampleService {
      * ID をもとに Example を1件取得する。
      */
     fun findOneByKey(exampleKey: String): ExampleFindResult
+
+    /**
+     * Example 一覧を取得する。
+     */
+    fun findList(
+        limit: Int,
+        offset: Int,
+        includeDisabled: Boolean
+    ): ExampleFindListResult
 }
