@@ -2,8 +2,10 @@ package service
 
 import helper.TransactionHelper
 import repository.ExampleRepository
+import result.ExampleCreateResult
 import result.ExampleFindListResult
 import result.ExampleFindResult
+import utility.ServiceDateTime
 
 class ExampleServiceImpl(
     private val transactionHelper: TransactionHelper,
@@ -30,6 +32,32 @@ class ExampleServiceImpl(
                 enabled = enabled
             )
             ExampleFindListResult.Success(testList)
+        }
+    }
+
+    override fun create(
+        exampleKey: String,
+        nameJa: String,
+        nameEn: String,
+        nameKo: String,
+        nameZh: String,
+        enabled: Boolean
+    ): ExampleCreateResult {
+        val now = ServiceDateTime.now()
+        return transactionHelper.masterTransaction {
+            val testId = exampleRepository.create(
+                exampleKey = exampleKey,
+                nameJa = nameJa,
+                nameEn = nameEn,
+                nameKo = nameKo,
+                nameZh = nameZh,
+                enabled = enabled,
+                createdAt = now,
+                updatedAt = now
+            )
+            val test = exampleRepository.findOneById(testId)
+                ?: return@masterTransaction ExampleCreateResult.BadRequest
+            ExampleCreateResult.Success(test)
         }
     }
 }

@@ -1,16 +1,21 @@
 package route.v1
 
 import controller.ExampleController
+import input.ExampleCreateInput
 import input.ExampleFindInput
 import input.ExampleFindListInput
+import input.body.ExampleCreateBody
 import io.ktor.application.call
 import io.ktor.http.HttpStatusCode
 import io.ktor.locations.KtorExperimentalLocationsAPI
 import io.ktor.locations.get
+import io.ktor.locations.post
+import io.ktor.request.receive
 import io.ktor.response.respond
 import io.ktor.routing.Route
 import io.ktor.routing.route
 import org.koin.ktor.ext.inject
+import response.ExampleCreateResponse
 import response.ExampleFindListResponse
 import response.ExampleFindResponse
 
@@ -37,6 +42,15 @@ fun Route.examples() {
                     call.respond(HttpStatusCode.BadRequest, response.error)
                 is ExampleFindListResponse.NotFound ->
                     call.respond(HttpStatusCode.NotFound, response.error)
+            }
+        }
+        post<ExampleCreateInput> { input ->
+            val body = call.receive<ExampleCreateBody>()
+            when (val response = exampleController.create(input.toRequest(body))) {
+                is ExampleCreateResponse.Success ->
+                    call.respond(HttpStatusCode.OK, response.example)
+                is ExampleCreateResponse.BadRequest ->
+                    call.respond(HttpStatusCode.BadRequest, response.error)
             }
         }
     }

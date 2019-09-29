@@ -19,4 +19,16 @@ interface ExampleService {
         offset: Int,
         includeDisabled: Boolean
     ): ExampleFindListResult
+
+    /**
+     * Example を作成する。
+     */
+    fun create(
+        exampleKey: String,
+        nameJa: String,
+        nameEn: String,
+        nameKo: String,
+        nameZh: String,
+        enabled: Boolean
+    ): ExampleCreateResult
 }

@@ -1,12 +1,15 @@
 package controller
 
 import entity.Example
+import request.ExampleCreateRequest
 import request.ExampleFindListRequest
 import request.ExampleFindRequest
+import response.ExampleCreateResponse
 import response.ExampleFindListResponse
 import response.ExampleFindResponse
 import response.error.Error
 import response.resource.ExampleResource
+import result.ExampleCreateResult
 import result.ExampleFindListResult
 import result.ExampleFindResult
 import service.ExampleService
@@ -38,6 +41,26 @@ class ExampleController(
                 ExampleFindListResponse.Success(result.exampleList.map { it.toResource() })
             is ExampleFindListResult.NotFound ->
                 ExampleFindListResponse.NotFound(Error("example are not found."))
+        }
+    }
+
+    fun create(request: ExampleCreateRequest): ExampleCreateResponse {
+        val validation = ExampleCreateRequest.validations.validate(request)
+        if (!validation.isValid) {
+            return ExampleCreateResponse.BadRequest(Error(validation.map { it.message() }.toString()))
+        }
+        return when (val result = exampleService.create(
+            exampleKey = request.exampleKey,
+            nameJa = request.nameJa,
+            nameEn = request.nameEn,
+            nameKo = request.nameKo,
+            nameZh = request.nameZh,
+            enabled = request.enabled
+        )) {
+            is ExampleCreateResult.Success ->
+                ExampleCreateResponse.Success(result.example.toResource())
+            is ExampleCreateResult.BadRequest ->
+                ExampleCreateResponse.BadRequest(Error("Creating example is failed"))
         }
     }
 

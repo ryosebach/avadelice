@@ -5,10 +5,13 @@ import org.jetbrains.exposed.sql.Op
 import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.SortOrder
 import org.jetbrains.exposed.sql.andWhere
+import org.jetbrains.exposed.sql.insertAndGetId
 import org.jetbrains.exposed.sql.select
 import rdb.table.ExampleTable
 import repository.ExampleRepository
 import utility.toJavaLocalDateTime
+import utility.toJodaDateTime
+import java.time.LocalDateTime
 
 class ExampleRepositoryImpl : ExampleRepository {
 
@@ -45,6 +48,30 @@ class ExampleRepositoryImpl : ExampleRepository {
             .orderBy(ExampleTable.id, SortOrder.ASC)
 
         return campaignQuery.map { it.toEntity() }
+    }
+
+    override fun create(
+        exampleKey: String,
+        nameJa: String,
+        nameEn: String,
+        nameKo: String,
+        nameZh: String,
+        enabled: Boolean,
+        createdAt: LocalDateTime,
+        updatedAt: LocalDateTime
+    ): Long {
+        val campaignId = ExampleTable.insertAndGetId {
+            it[this.exampleKey] = exampleKey
+            it[this.nameJa] = nameJa
+            it[this.nameEn] = nameEn
+            it[this.nameKo] = nameKo
+            it[this.nameZh] = nameZh
+            it[this.enabled] = enabled
+            it[this.createdAt] = createdAt.toJodaDateTime()
+            it[this.updatedAt] = updatedAt.toJodaDateTime()
+        }
+
+        return campaignId.value
     }
 
     /**

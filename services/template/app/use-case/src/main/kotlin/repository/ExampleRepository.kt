@@ -13,4 +13,15 @@ interface ExampleRepository {
         offset: Int,
         enabled: Boolean?
     ): List<Example>
+
+    fun create(
+        exampleKey: String,
+        nameJa: String,
+        nameEn: String,
+        nameKo: String,
+        nameZh: String,
+        enabled: Boolean,
+        createdAt: LocalDateTime,
+        updatedAt: LocalDateTime
+    ): Long
 }
