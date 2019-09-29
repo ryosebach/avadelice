@@ -8,6 +8,16 @@ import repository.ExampleRepository
 import utility.toJavaLocalDateTime
 
 class ExampleRepositoryImpl : ExampleRepository {
+
+    override fun findOneById(id: Long): Example? {
+        val campaign = ExampleTable
+            .select { ExampleTable.id eq id }
+            .limit(1)
+            .singleOrNull()
+
+        return campaign?.toEntity()
+    }
+
     override fun findOneByKey(exampleKey: String): Example? {
         val campaign = ExampleTable
             .select { ExampleTable.exampleKey eq exampleKey }
