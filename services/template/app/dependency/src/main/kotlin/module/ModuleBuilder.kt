@@ -1,6 +1,8 @@
 package module
 
 import controller.ExampleController
+import controller.ExampleFindListController
+import controller.ExampleFindOneController
 import helper.DatabaseConfig
 import helper.TransactionHelper
 import helper.TransactionHelperImpl
@@ -57,6 +59,8 @@ object ModuleBuilder {
 
             // controllers
             single { ExampleController(get()) }
+            single { ExampleFindListController(get()) }
+            single { ExampleFindOneController(get()) }
 
             // services
             single<ExampleService> { ExampleServiceImpl(get(), get()) }

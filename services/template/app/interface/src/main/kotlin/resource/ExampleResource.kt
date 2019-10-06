@@ -1,4 +1,4 @@
-package response.resource
+package resource
 
 data class ExampleResource(
     val exampleKey: String,
