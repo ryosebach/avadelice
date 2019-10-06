@@ -3,7 +3,7 @@ package controller
 import adapter.Controller
 import adapter.Request
 import adapter.Response
-import entity.Example
+import extension.toResource
 import request.ExampleUpdateContent
 import request.ExampleUpdateParams
 import resource.ErrorResource
@@ -11,7 +11,6 @@ import resource.ErrorType
 import resource.ExampleResource
 import result.ExampleUpdateResult
 import service.ExampleService
-import utility.formatToISO
 
 class ExampleUpdateController(
     private val exampleService: ExampleService
@@ -34,21 +33,5 @@ class ExampleUpdateController(
                 ErrorResource(ErrorType.SYSTEM_ERROR, "Failed Update.")
             )
         }
-    }
-
-    /**
-     * エンティティをリソースの形式に変換する
-     */
-    private fun Example.toResource(): ExampleResource {
-        return ExampleResource(
-            this.testKey,
-            this.nameJa,
-            this.nameEn,
-            this.nameKo,
-            this.nameZh,
-            this.enabled,
-            this.createdAt.formatToISO(),
-            this.updatedAt.formatToISO()
-        )
     }
 }

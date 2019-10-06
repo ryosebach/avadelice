@@ -4,14 +4,13 @@ import adapter.Controller
 import adapter.NoInput
 import adapter.Request
 import adapter.Response
-import entity.Example
+import extension.toResource
 import request.ExampleFindOneParams
 import resource.ErrorResource
 import resource.ErrorType
 import resource.ExampleResource
 import result.ExampleFindResult
 import service.ExampleService
-import utility.formatToISO
 
 class ExampleFindOneController(
     private val exampleService: ExampleService
@@ -26,21 +25,5 @@ class ExampleFindOneController(
                 ErrorResource(ErrorType.NOT_FOUND, "Example Not Found.")
             )
         }
-    }
-
-    /**
-     * エンティティをリソースの形式に変換する
-     */
-    private fun Example.toResource(): ExampleResource {
-        return ExampleResource(
-            this.testKey,
-            this.nameJa,
-            this.nameEn,
-            this.nameKo,
-            this.nameZh,
-            this.enabled,
-            this.createdAt.formatToISO(),
-            this.updatedAt.formatToISO()
-        )
     }
 }
