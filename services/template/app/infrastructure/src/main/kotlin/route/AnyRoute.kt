@@ -1,5 +1,6 @@
 package route
 
+import controller.ExampleCreateController
 import controller.ExampleFindListController
 import controller.ExampleFindOneController
 import extension.process
@@ -7,6 +8,7 @@ import io.ktor.application.call
 import io.ktor.locations.KtorExperimentalLocationsAPI
 import io.ktor.locations.Location
 import io.ktor.locations.get
+import io.ktor.locations.post
 import io.ktor.routing.Routing
 import io.ktor.routing.route
 import org.koin.ktor.ext.inject
@@ -19,12 +21,14 @@ import route.v1.health
 fun Routing.root() {
     val exampleFindOneController: ExampleFindOneController by inject()
     val exampleFindListController: ExampleFindListController by inject()
+    val exampleCreateController: ExampleCreateController by inject()
 
     route("v1") {
         health()
         examples()
         get<Examples.List> { location -> call.process(exampleFindListController, location.toParams()) }
         get<Examples.One> { location -> call.process(exampleFindOneController, location.toParams()) }
+        post<Examples> { call.process(exampleCreateController) }
     }
 }
 

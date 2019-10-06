@@ -1,14 +1,11 @@
 package controller
 
 import entity.Example
-import request.ExampleCreateRequest
 import request.ExampleUpdateRequest
 import resource.ErrorResource
 import resource.ErrorType
-import response.ExampleCreateResponse
 import response.ExampleUpdateResponse
 import resource.ExampleResource
-import result.ExampleCreateResult
 import result.ExampleUpdateResult
 import service.ExampleService
 import utility.formatToISO
@@ -16,26 +13,6 @@ import utility.formatToISO
 class ExampleController(
     private val exampleService: ExampleService
 ) {
-    fun create(request: ExampleCreateRequest): ExampleCreateResponse {
-        val validation = ExampleCreateRequest.validations.validate(request)
-        if (!validation.isValid) {
-            return ExampleCreateResponse.BadRequest(ErrorResource(ErrorType.VALIDATION_ERROR, validation.map { it.message() }.toString()))
-        }
-        return when (val result = exampleService.create(
-            exampleKey = request.exampleKey,
-            nameJa = request.nameJa,
-            nameEn = request.nameEn,
-            nameKo = request.nameKo,
-            nameZh = request.nameZh,
-            enabled = request.enabled
-        )) {
-            is ExampleCreateResult.Success ->
-                ExampleCreateResponse.Success(result.example.toResource())
-            is ExampleCreateResult.BadRequest ->
-                ExampleCreateResponse.BadRequest(ErrorResource(ErrorType.SYSTEM_ERROR, "Creating example is failed"))
-        }
-    }
-
     fun update(request: ExampleUpdateRequest): ExampleUpdateResponse {
         val validation = ExampleUpdateRequest.validations.validate(request)
         if (!validation.isValid) {
