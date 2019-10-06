@@ -3,7 +3,7 @@ package extension
 import am.ik.yavi.core.ConstraintViolations
 import adapter.Violations
 import resource.ErrorResource
-import resource.ErrorType
+import resource.ErrorResource.ErrorType
 
 fun ConstraintViolations.toViolations(): Violations {
     val self = this

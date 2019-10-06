@@ -17,7 +17,7 @@ import io.ktor.util.KtorExperimentalAPI
 import org.koin.dsl.module.Module
 import org.slf4j.event.Level
 import resource.ErrorResource
-import resource.ErrorType
+import resource.ErrorResource.ErrorType
 import java.time.Duration
 
 class Config(private val environment: ApplicationEnvironment) {

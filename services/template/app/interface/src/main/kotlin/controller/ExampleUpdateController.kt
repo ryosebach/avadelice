@@ -7,7 +7,7 @@ import extension.toResource
 import request.ExampleUpdateContent
 import request.ExampleUpdateParams
 import resource.ErrorResource
-import resource.ErrorType
+import resource.ErrorResource.ErrorType
 import resource.ExampleResource
 import result.ExampleUpdateResult
 import service.ExampleService

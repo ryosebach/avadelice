@@ -14,7 +14,7 @@ import io.ktor.request.httpVersion
 import io.ktor.request.receiveOrNull
 import io.ktor.request.uri
 import io.ktor.response.respond
-import resource.ErrorType
+import resource.ErrorResource.ErrorType
 
 fun ApplicationCall.toAccessLog(status: HttpStatusCode): String {
     return """
