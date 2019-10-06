@@ -9,7 +9,7 @@ import io.ktor.routing.routing
 import io.ktor.util.KtorExperimentalAPI
 import module.ModuleBuilder
 import org.koin.ktor.ext.installKoin
-import route.root
+import config.root
 
 @KtorExperimentalAPI
 @KtorExperimentalLocationsAPI

@@ -1,4 +1,4 @@
-package route
+package config
 
 import controller.ExampleCreateController
 import controller.ExampleFindListController
@@ -6,18 +6,20 @@ import controller.ExampleFindOneController
 import controller.ExampleUpdateController
 import extension.process
 import io.ktor.application.call
+import io.ktor.http.HttpStatusCode
 import io.ktor.locations.KtorExperimentalLocationsAPI
 import io.ktor.locations.Location
 import io.ktor.locations.get
 import io.ktor.locations.post
 import io.ktor.locations.put
+import io.ktor.response.respond
 import io.ktor.routing.Routing
+import io.ktor.routing.get
 import io.ktor.routing.route
 import org.koin.ktor.ext.inject
 import request.ExampleFindListParams
 import request.ExampleFindOneParams
 import request.ExampleUpdateParams
-import route.v1.health
 
 @KtorExperimentalLocationsAPI
 fun Routing.root() {
@@ -26,8 +28,10 @@ fun Routing.root() {
     val exampleCreateController: ExampleCreateController by inject()
     val exampleUpdateController: ExampleUpdateController by inject()
 
+    val health = mapOf("status" to "OK")
+
     route("v1") {
-        health()
+        get("/health") { call.respond(HttpStatusCode.OK, health) }
         get<Examples.List> { location -> call.process(exampleFindListController, location.toParams()) }
         get<Examples.One> { location -> call.process(exampleFindOneController, location.toParams()) }
         post<Examples> { call.process(exampleCreateController) }
