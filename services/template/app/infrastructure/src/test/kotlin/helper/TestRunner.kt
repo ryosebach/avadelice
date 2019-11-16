@@ -9,11 +9,11 @@ import com.ninja_squad.dbsetup.Operations
 import com.ninja_squad.dbsetup.destination.DriverManagerDestination
 import com.ninja_squad.dbsetup.operation.Operation
 import com.typesafe.config.ConfigFactory
+import config.Config
 import io.ktor.config.HoconApplicationConfig
 import io.ktor.server.testing.TestApplicationEngine
 import io.ktor.server.testing.createTestEnvironment
 import io.ktor.util.KtorExperimentalAPI
-import module.InfrastructureModule
 import org.koin.ktor.ext.installKoin
 
 @KtorExperimentalAPI
@@ -24,15 +24,15 @@ class TestRunner(
 
     init {
         val applicationConfig = HoconApplicationConfig(testConfig)
-        val modules = listOf(
-            module,
-            InfrastructureModule.module(applicationConfig)
-        )
 
         testApplicationEngine = TestApplicationEngine(
             createTestEnvironment {
                 config = applicationConfig
             }
+        )
+        val modules = listOf(
+            module,
+            Config(testApplicationEngine.environment).module()
         )
 
         testApplicationEngine.start(true)
