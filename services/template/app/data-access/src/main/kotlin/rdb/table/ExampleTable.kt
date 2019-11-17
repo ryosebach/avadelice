@@ -1,6 +1,7 @@
 package rdb.table
 
 import org.jetbrains.exposed.dao.LongIdTable
+import org.jetbrains.exposed.sql.datetime
 
 object ExampleTable : LongIdTable("example") {
     val exampleKey = varchar("example_key", 191)

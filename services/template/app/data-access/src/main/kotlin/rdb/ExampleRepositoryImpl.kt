@@ -11,8 +11,6 @@ import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.update
 import rdb.table.ExampleTable
 import repository.ExampleRepository
-import utility.toJavaLocalDateTime
-import utility.toJodaDateTime
 
 class ExampleRepositoryImpl : ExampleRepository {
 
@@ -68,8 +66,8 @@ class ExampleRepositoryImpl : ExampleRepository {
             it[this.nameKo] = nameKo
             it[this.nameZh] = nameZh
             it[this.enabled] = enabled
-            it[this.createdAt] = createdAt.toJodaDateTime()
-            it[this.updatedAt] = updatedAt.toJodaDateTime()
+            it[this.createdAt] = createdAt
+            it[this.updatedAt] = updatedAt
         }
 
         return campaignId.value
@@ -90,7 +88,7 @@ class ExampleRepositoryImpl : ExampleRepository {
             nameKo?.let { value -> it[this.nameKo] = value }
             nameZh?.let { value -> it[this.nameZh] = value }
             enabled?.let { value -> it[this.enabled] = value }
-            it[this.updatedAt] = updatedAt.toJodaDateTime()
+            it[this.updatedAt] = updatedAt
         }
         if (count > 1) throw Exception("Duplicate ID")
         return count != 0
@@ -108,8 +106,8 @@ class ExampleRepositoryImpl : ExampleRepository {
             this[ExampleTable.nameKo],
             this[ExampleTable.nameZh],
             this[ExampleTable.enabled],
-            this[ExampleTable.createdAt].toLocalDateTime().toJavaLocalDateTime(),
-            this[ExampleTable.updatedAt].toLocalDateTime().toJavaLocalDateTime()
+            this[ExampleTable.createdAt],
+            this[ExampleTable.updatedAt]
         )
     }
 }
